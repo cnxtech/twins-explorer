@@ -87,43 +87,39 @@ installMongo () {
     clear
 }
 
-installTWINS () {
+installTWINS() {
     echo "Installing TWINS..."
-    mkdir -p /tmp/dogecash
-    cd /tmp/dogecash
-   curl -Lo dogecash.zip $dogeclink
-apt install zip unzip
-
-unzip dogecash.zip
-cd dogecash
-
-sudo mv .* /usr/local/bin
+    mkdir -p /tmp/twins
+    cd /tmp/twins
+    curl -Lo twins.tar.gz $twinslink
+    tar -xzf twins.tar.gz
+    sudo mv ./bin/* /usr/local/bin
     cd
-    rm -rf /tmp/dogecash
-    mkdir -p /home/explorer/.dogecash
-    cat > /home/explorer/.dogecash/dogecash.conf << EOL
+    rm -rf /tmp/twins
+    mkdir -p /home/explorer/.twins
+    cat > /home/explorer/.twins/twins.conf << EOL
 rpcport=52544
 rpcuser=$rpcuser
 rpcpassword=$rpcpassword
 daemon=1
 txindex=1
 EOL
-    sudo cat > /etc/systemd/system/dogecashd.service << EOL
+    sudo cat > /etc/systemd/system/twinsd.service << EOL
 [Unit]
-Description=dogecashd
+Description=twinsd
 After=network.target
 [Service]
 Type=forking
 User=explorer
 WorkingDirectory=/home/explorer
-ExecStart=/home/explorer/bin/dogecashd -datadir=/home/explorer/.dogecash
-ExecStop=/home/explorer/bin/dogecash-cli -datadir=/home/explorer/.dogecash stop
+ExecStart=/home/explorer/bin/twinsd -datadir=/home/explorer/.twins
+ExecStop=/home/explorer/bin/twins-cli -datadir=/home/explorer/.twins stop
 Restart=on-abort
 [Install]
 WantedBy=multi-user.target
 EOL
-    sudo systemctl start dogecashd
-    sudo systemctl enable dogecashd
+    sudo systemctl start twinsd
+    sudo systemctl enable twinsd
     echo "Sleeping for 1 hour while node syncs blockchain..."
     sleep 1h
     clear
@@ -131,7 +127,7 @@ EOL
 
 installBlockEx () {
     echo "Installing BlockEx..."
-    git clone https://github.com/dogecash/dogecash-explorer.git /home/explorer/blockex
+    git clone https://github.com/NewCapital/twins-explorer .git /home/explorer/blockex
     cd /home/explorer/blockex
     yarn install
     cat > /home/explorer/blockex/config.js << EOL
@@ -144,7 +140,7 @@ const config = {
   },
   'coinMarketCap': {
     'api': 'http://api.coinmarketcap.com/v1/ticker/',
-    'ticker': 'dogecash'
+    'ticker': 'twins'
   },
   'db': {
     'host': '127.0.0.1',
@@ -194,10 +190,10 @@ clear
 
 # Variables
 echo "Setting up variables..."
-dogeclink=`curl -s https://api.github.com/repos/dogecash/dogecash/releases/latest | grep browser_download_url | grep dogecash.zip | cut -d '"' -f 4`
+twinslink=`curl -s https://api.github.com/repos/NewCapital/TWINS-Core/releases/latest | grep browser_download_url | grep x86_64-linux | cut -d '"' -f 4`
 rpcuser=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 ; echo '')
 rpcpassword=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 32 ; echo '')
-echo "Repo: $bwklink"
+echo "Repo: $twinslink"
 echo "PWD: $PWD"
 echo "User: $rpcuser"
 echo "Pass: $rpcpassword"
