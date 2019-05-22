@@ -1,6 +1,6 @@
-![DogeCash Logo](https://dogec.io/assets/images/logo.svg)
+![TWINS Logo](https://dogec.io/assets/images/logo.svg)
 
-DogeCash Explorer
+TWINS Explorer
 &middot;
 [![GitHub license](https://img.shields.io/github/license/dogecash/dogecash-explorer.svg)](https://github.com/dogecash/dogecash-explorer/blob/master/COPYING) [![Build Status](https://travis-ci.com/dogecash/dogecash-explorer.svg?branch=master)](https://travis-ci.com/dogecash-crypto/dogecash-explorer) [![Discord](https://img.shields.io/discord/479050479330918410.svg)](http://discord.dogec.io/) [![GitHub version](https://badge.fury.io/gh/dogecash%2Fdogecash-explorer.svg)](https://badge.fury.io/gh/dogecash%2Fdogecash-explorer)
 =====
@@ -18,13 +18,13 @@ https://nodejs.org/en/download/package-manager/
 
 https://yarnpkg.com/lang/en/docs/install/
 
-It is also required to have the DogeCash daemon running in the background. It is recommended to set this up before beginning to set up the explorer so that it syncs by the time you need it.
+It is also required to have the TWINS daemon running in the background. It is recommended to set this up before beginning to set up the explorer so that it syncs by the time you need it.
 
-Our geniuses here at DogeCash™ have put together a script to do this for you. Just run
+Our geniuses here at TWINS™ have put together a script to do this for you. Just run
 
 `bash script/dogecashd_setup.sh`
 
-This will install the latest DogeCash wallet and create a rpc username/password before starting the daemon.
+This will install the latest TWINS wallet and create a rpc username/password before starting the daemon.
 
 ## Install
 `git clone https://github.com/dogecash/dogecash-explorer.git` - copy repo to local folder.

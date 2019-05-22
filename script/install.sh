@@ -25,7 +25,7 @@ server {
 
     root /var/www/html;
     index index.html index.htm index.nginx-debian.html;
-    #server_name explorer.dogec.io;
+    #server_name explorer2.win.win;
     server_name _;
 
     gzip on;
@@ -51,21 +51,21 @@ server {
 
     #listen [::]:443 ssl ipv6only=on; # managed by Certbot
     #listen 443 ssl; # managed by Certbot
-    #ssl_certificate /etc/letsencrypt/live/explorer.dogec.io/fullchain.pem; # managed by Certbot
-    #ssl_certificate_key /etc/letsencrypt/live/explorer.dogec.io/privkey.pem; # managed by Certbot
+    #ssl_certificate /etc/letsencrypt/live/explorer2.win.win/fullchain.pem; # managed by Certbot
+    #ssl_certificate_key /etc/letsencrypt/live/explorer2.win.win/privkey.pem; # managed by Certbot
     #include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     #ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
 #server {
-#    if ($host = explorer.dogec.io) {
+#    if ($host = explorer2.win.win) {
 #        return 301 https://\$host\$request_uri;
 #    } # managed by Certbot
 #
 #	listen 80 default_server;
 #	listen [::]:80 default_server;
 #
-#	server_name explorer.dogec.io;
+#	server_name explorer2.win.win;
 #   return 404; # managed by Certbot
 #}
 EOL
@@ -87,8 +87,8 @@ installMongo () {
     clear
 }
 
-installDogeCash () {
-    echo "Installing DogeCash..."
+installTWINS () {
+    echo "Installing TWINS..."
     mkdir -p /tmp/dogecash
     cd /tmp/dogecash
    curl -Lo dogecash.zip $dogeclink
@@ -137,7 +137,7 @@ installBlockEx () {
     cat > /home/explorer/blockex/config.js << EOL
 const config = {
   'api': {
-    'host': 'https://api.dogec.io',
+    'host': 'https://ex2api.win.win',
     'port': '443',
     'prefix': '/api',
     'timeout': '180s'
@@ -209,7 +209,7 @@ if [ ! -d "/home/explorer/blockex" ]
 then
     installNginx
     installMongo
-    installDogeCash
+    installTWINS
     installNodeAndYarn
     installBlockEx
     echo "Finished installation!"

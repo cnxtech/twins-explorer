@@ -8,7 +8,7 @@ const CardLinks = () => (
     <a href="https://dogec.io/" target="_blank">Website</a><br />
     {/* <a href="https://bitcointalk.org/" target="_blank">Bitcointalk</a><br /> */}
     <a href="https://github.com/dogecash/dogecash" target="_blank">Github</a><br />
-    <a href="https://www.reddit.com/r/DogeCash/" target="_blank">Reddit</a><br />
+    <a href="https://www.reddit.com/r/TWINS/" target="_blank">Reddit</a><br />
     <a href="https://discord.dogec.io/" target="_blank">Discord</a><br />
     <a href="https://telegram.dogec.io/" target="_blank">Telegram</a><br />
     <a href="https://twitter.dogec.io/" target="_blank">Twitter</a><br />
