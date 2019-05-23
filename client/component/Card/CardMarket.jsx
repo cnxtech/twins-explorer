@@ -47,7 +47,7 @@ export default class CardStatus extends Component {
             prefix={ 'TWINS $' }
             start={ 0 } />
         </p>
-        <p className="card__data-sub">{ this.props.btc } BTC</p>
+        <p className="card__data-sub">{ numeral(this.props.coin.btc).format('0.00000000') } BTC</p>
         <div className="card__info row">
           <div className="col-sm-12 col-md-6 col-lg-4">
             <p>
