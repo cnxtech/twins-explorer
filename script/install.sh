@@ -10,7 +10,7 @@ installNodeAndYarn () {
     sudo apt-get install -y yarn
     sudo npm install -g pm2
     sudo ln -s /usr/bin/nodejs /usr/bin/node
-    sudo chown -R explorer:explorer /home/explorer/.config
+    sudo chown -R explorer:explorer /root/.config
     clear
 }
 
@@ -61,7 +61,7 @@ server {
 #     ssl_certificate_key /etc/letsencrypt/live/explorer2.win.win/privkey.pem; # managed by Certbot
 #     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
 #     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-# }
+}
 
 # server {
 #    if ($host = explorer2.win.win) {
@@ -103,8 +103,8 @@ installTWINS() {
     sudo mv ./bin/* /usr/local/bin
     cd
     rm -rf /tmp/twins
-    mkdir -p /home/explorer/.twins
-    cat > /home/explorer/.twins/twins.conf << EOL
+    mkdir -p /root/.twins
+    cat > /root/.twins/twins.conf << EOL
 rpcport=52544
 rpcuser=$rpcuser
 rpcpassword=$rpcpassword
@@ -134,10 +134,10 @@ EOL
 
 installBlockEx () {
     echo "Installing BlockEx..."
-    git clone https://github.com/NewCapital/twins-explorer .git /home/explorer/blockex
-    cd /home/explorer/blockex
+    git clone https://github.com/NewCapital/twins-explorer  /root/blockex
+    cd /root/blockex
     yarn install
-    cat > /home/explorer/blockex/config.js << EOL
+    cat > /root/blockex/config.js << EOL
 const config = {
   'api': {
     'host': 'https://ex2api.win.win',
@@ -183,11 +183,11 @@ EOL
     nodejs ./cron/rich.js
     clear
     cat > mycron << EOL
-*/1 * * * * cd /home/explorer/blockex && ./script/cron_block.sh >> ./tmp/block.log 2>&1
-*/1 * * * * cd /home/explorer/blockex && /usr/bin/nodejs ./cron/masternode.js >> ./tmp/masternode.log 2>&1
-*/1 * * * * cd /home/explorer/blockex && /usr/bin/nodejs ./cron/peer.js >> ./tmp/peer.log 2>&1
-*/1 * * * * cd /home/explorer/blockex && /usr/bin/nodejs ./cron/rich.js >> ./tmp/rich.log 2>&1
-*/5 * * * * cd /home/explorer/blockex && /usr/bin/nodejs ./cron/coin.js >> ./tmp/coin.log 2>&1
+*/1 * * * * cd /root/blockex && ./script/cron_block.sh >> ./tmp/block.log 2>&1
+*/1 * * * * cd /root/blockex && /usr/bin/nodejs ./cron/masternode.js >> ./tmp/masternode.log 2>&1
+*/1 * * * * cd /root/blockex && /usr/bin/nodejs ./cron/peer.js >> ./tmp/peer.log 2>&1
+*/1 * * * * cd /root/blockex && /usr/bin/nodejs ./cron/rich.js >> ./tmp/rich.log 2>&1
+*/5 * * * * cd /root/blockex && /usr/bin/nodejs ./cron/coin.js >> ./tmp/coin.log 2>&1
 EOL
     crontab mycron
     rm -f mycron
@@ -223,7 +223,7 @@ then
     installBlockEx
     echo "Finished installation!"
 else
-    cd /home/explorer/blockex
+    cd /root/blockex
     git pull
     pm2 restart index
     echo "BlockEx updated!"
