@@ -12,14 +12,7 @@ const APIsection = (props) => {
 
       document.body.appendChild(dummy);
       dummy.setAttribute('id', 'dummy');
-      if(call.path.indexOf('api') >= 0 || call.path.indexOf('ext') >= 0){
-        document.getElementById('dummy').value = "https://ex2api.win.win" + call.path;
-
-      }
-      else {
         document.getElementById('dummy').value = API_BASE + call.path;
-
-      }
       dummy.select();
       document.execCommand("copy");
       document.body.removeChild(dummy);

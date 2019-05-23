@@ -57,19 +57,19 @@ class Footer extends Component {
               {/* <a href="https://bitcointalk.org/index.php?topic=2499481.0" target="_blank">
                 <Icon name="bitcoin" className="fab footer__social-media-icon" />
               </a> */}
-              <a href="https://discord.dogec.io/" target="_blank">
+              <a href="https://discordapp.com/invite/zZbnYKV" target="_blank">
                 <Icon name="discord" className="fab footer__social-media-icon" />
               </a>
-              <a href="https://telegram.dogec.io/" target="_blank">
+              {/* <a href="https://telegram.dogec.io/" target="_blank">
                 <Icon name="telegram" className="fab footer__social-media-icon" />
-              </a>
-              <a href="https://reddit.dogec.io/" target="_blank">
+              </a> */}
+              {/* <a href="https://reddit.dogec.io/" target="_blank">
                 <Icon name="reddit" className="fab footer__social-media-icon" />
-              </a>
-              <a href="https://github.dogec.io/" target="_blank">
+              </a> */}
+              <a href="https://github.com/NewCapital/" target="_blank">
                 <Icon name="github" className="fab footer__social-media-icon" />
               </a>
-              <a href="https://twitter.dogec.io/" target="_blank">
+              <a href="https://twitter.com/TWINS_Coin" target="_blank">
                 <Icon name="twitter" className="fab footer__social-media-icon" />
               </a>
             

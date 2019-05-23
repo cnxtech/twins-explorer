@@ -6,8 +6,8 @@ import Card from './Card';
 const CardExchanges = () => (
   <Card title="Exchanges">
 
-    <a href="https://cb.dogec.io/" target="_blank">CryptoBridge</a><br />
-    <a href="https://stex.dogec.io/" target="_blank">STEX</a><br />
+    <a href="https://bitsane.com/exchange/twins-btc" target="_blank">BitSane</a><br />
+    <a href="https://p2pb2b.io/trade/TWINS_BTC" target="_blank">P2PB2B</a><br />
 
   </Card>
 );
