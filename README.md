@@ -2,7 +2,7 @@
 
 TWINS Explorer
 &middot;
-[![GitHub license](https://img.shields.io/github/license/NewCapital/TWINS-Core-explorer.svg)](https://github.com/NewCapital/TWINS-Core-explorer/blob/master/COPYING) [![Build Status](https://travis-ci.com/NewCapital/TWINS-Core-explorer.svg?branch=master)](https://travis-ci.com/TWINS-Core-crypto/TWINS-Core-explorer) [![Discord](https://img.shields.io/discord/479050479330918410.svg)](http://discord.dogec.io/) [![GitHub version](https://badge.fury.io/gh/TWINS-Core%2Ftwins-explorer.svg)](https://badge.fury.io/gh/TWINS-Core%2Ftwins-explorer)
+[![GitHub license](https://img.shields.io/github/license/NewCapital/twins-explorer.svg)](https://github.com/NewCapital/twins-explorer/blob/master/COPYING) [![Build Status](https://travis-ci.com/NewCapital/twins-explorer.svg?branch=master)](https://travis-ci.com/NewCapital/twins-explorer) [![Discord](https://img.shields.io/discord/479050479330918410.svg)](http://discord.dogec.io/) [![GitHub version](https://badge.fury.io/gh/TWINS-Core%2Ftwins-explorer.svg)](https://badge.fury.io/gh/TWINS-Core%2Ftwins-explorer)
 =====
 
 Simple cryptocurrency block explorer system.
@@ -27,7 +27,7 @@ Our geniuses here at TWINS™ have put together a script to do this for you. Jus
 This will install the latest TWINS wallet and create a rpc username/password before starting the daemon.
 
 ## Install
-`git clone https://github.com/NewCapital/TWINS-Core-explorer.git` - copy repo to local folder.
+`git clone https://github.com/NewCapital/twins-explorer.git` - copy repo to local folder.
 
 `cd blockex` - change into project directory.
 
