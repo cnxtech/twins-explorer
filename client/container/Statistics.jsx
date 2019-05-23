@@ -224,7 +224,7 @@ class Statistics extends Component {
             <div className="col-md-12 col-lg-6">
               <h3>TWINS Price USD</h3>
               <h4>{ numeral(this.props.coin.usd).format('$0,0.000000') } { day }</h4>
-              <h5>{ numeral(this.props.coin.btc).format('0.00000000') } BTC</h5>
+              <h5>{ numeral(this.props.coin.btc) } BTC</h5>
               <div>
                 <GraphLineFull
                   color="#1991eb"

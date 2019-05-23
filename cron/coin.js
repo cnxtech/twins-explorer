@@ -29,7 +29,7 @@ async function syncCoin() {
         cap: market.market_cap_usd,
         createdAt: date,
         blocks: info.blocks,
-        btc: Number(market.price_btc.toString()),
+        btc: market.price_btc,
         diff: info.difficulty,
         mnsOff: masternodes.total - masternodes.stable,
         mnsOn: masternodes.stable,
