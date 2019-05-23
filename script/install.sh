@@ -203,7 +203,7 @@ clear
 
 # Variables
 echo "Setting up variables..."
-twinslink=`curl -s https://api.github.com/repos/NewCapital/TWINS-Core/releases/latest | grep browser_download_url | grep x86_64-linux | cut -d '"' -f 4`
+twinslink=`https://github.com/NewCapital/TWINS-Core/releases/download/twins_v3.2.1.0/twins-3.2.1.0-x86_64-linux-gnu.tar.gz`
 rpcuser=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 ; echo '')
 rpcpassword=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 32 ; echo '')
 echo "Repo: $twinslink"
