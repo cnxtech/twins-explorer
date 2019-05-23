@@ -100,6 +100,7 @@ installTWINS() {
     cd /tmp/twins
     wget "${twinslink}" -O twins.tar.gz
     tar -xzf twins.tar.gz
+    cd twins-3.2.1
     sudo mv ./bin/* /usr/local/bin
     cd
     rm -rf /tmp/twins
