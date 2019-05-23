@@ -80,15 +80,15 @@ a {
   </head>
   <body>
     <div class="logo">
-      <a href="https://dogec.io/">
-        <img src="https://dogec.io/wp-content/uploads/2018/06/logo@2x.png" title="TWINS Coin"/>
+      <a href="https://win.win/">
+        <img src="https://win.win/wp-content/uploads/2018/06/logo@2x.png" title="TWINS Coin"/>
       </a>
       </div>
     <div class="container">
         <img src="https://media.giphy.com/media/vIDsZm5DMZ5Ha/giphy.gif" title="Sad Explorer."/>
       <h1>Maintenance</h1>
       <p>TWINS Explorer is not available at this moment.<br/>Please check back later.</p><br/>
-  <a href="https://dogec.io/" class="button">Back to Main</a>
+  <a href="https://win.win/" class="button">Back to Main</a>
       </div>
   </body>
 </html>
