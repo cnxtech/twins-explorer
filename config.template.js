@@ -10,7 +10,7 @@ const config = {
     },
     'coinMarketCap': {
         'api': 'http://api.coinmarketcap.com/v1/ticker/',
-        'ticker': 'TWINS'
+        'ticker': 'win-win'
     },
     'db': {
         'host': '127.0.0.1',
@@ -25,7 +25,7 @@ const config = {
     'rpc': {
         'host': '127.0.0.1',
         'port': '52541',
-        'user': 'dogecrpc',
+        'user': 'twinsrpc',
         'pass': 'someverysafepassword',
         'timeout': 8000, // 8 seconds
     },

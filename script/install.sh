@@ -15,6 +15,12 @@ installNodeAndYarn () {
 }
 
 installNginx () {
+sudo apt-get update
+sudo apt-get install software-properties-common
+sudo add-apt-repository universe
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install certbot python-certbot-nginx
     echo "Installing nginx..."
     sudo apt-get install -y nginx
     sudo rm -f /etc/nginx/sites-available/default
@@ -49,29 +55,30 @@ server {
             proxy_cache_bypass \$http_upgrade;
     }
 
-    #listen [::]:443 ssl ipv6only=on; # managed by Certbot
-    #listen 443 ssl; # managed by Certbot
-    #ssl_certificate /etc/letsencrypt/live/explorer2.win.win/fullchain.pem; # managed by Certbot
-    #ssl_certificate_key /etc/letsencrypt/live/explorer2.win.win/privkey.pem; # managed by Certbot
-    #include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    #ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/explorer2.win.win/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/explorer2.win.win/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
-#server {
-#    if ($host = explorer2.win.win) {
-#        return 301 https://\$host\$request_uri;
-#    } # managed by Certbot
-#
-#	listen 80 default_server;
-#	listen [::]:80 default_server;
-#
-#	server_name explorer2.win.win;
-#   return 404; # managed by Certbot
-#}
+server {
+   if ($host = explorer2.win.win) {
+       return 301 https://\$host\$request_uri;
+   } # managed by Certbot
+
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	server_name explorer2.win.win;
+  return 404; # managed by Certbot
+}
 EOL
     sudo systemctl start nginx
     sudo systemctl enable nginx
     clear
+sudo certbot --nginx
 }
 
 installMongo () {
@@ -120,8 +127,8 @@ WantedBy=multi-user.target
 EOL
     sudo systemctl start twinsd
     sudo systemctl enable twinsd
-    echo "Sleeping for 1 hour while node syncs blockchain..."
-    sleep 1h
+    echo "Sleeping for 30 mins while node syncs blockchain..."
+    sleep 30m
     clear
 }
 
@@ -140,7 +147,7 @@ const config = {
   },
   'coinMarketCap': {
     'api': 'http://api.coinmarketcap.com/v1/ticker/',
-    'ticker': 'twins'
+    'ticker': 'win-win'
   },
   'db': {
     'host': '127.0.0.1',
@@ -158,7 +165,13 @@ const config = {
     'user': '$rpcuser',
     'pass': '$rpcpassword',
     'timeout': 12000, // 12 seconds
-  }
+  },
+  'slack': {
+        'url': 'https://hooks.slack.com/services/A00000000/B00000000/somekindofhashhere',
+        //'channel': '#general',
+        //'username': 'Block Report',
+        //'icon_emoji': ':bwk:'
+    }
 };
 
 module.exports = config;
