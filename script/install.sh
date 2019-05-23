@@ -98,7 +98,7 @@ installTWINS() {
     echo "Installing TWINS..."
     mkdir -p /tmp/twins
     cd /tmp/twins
-    curl -Lo twins.tar.gz $twinslink
+    wget $twinslink -O twins.tar.gz
     tar -xzf twins.tar.gz
     sudo mv ./bin/* /usr/local/bin
     cd
