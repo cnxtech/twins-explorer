@@ -2,7 +2,7 @@
 
 TWINS Explorer
 &middot;
-[![GitHub license](https://img.shields.io/github/license/NewCapital/twins-explorer.svg)](https://github.com/NewCapital/twins-explorer/blob/master/COPYING) [![Build Status](https://travis-ci.com/NewCapital/twins-explorer.svg?branch=master)](https://travis-ci.com/NewCapital/twins-explorer) [![Discord](https://img.shields.io/discord/479050479330918410.svg)](http://discord.dogec.io/) [![GitHub version](https://badge.fury.io/gh/TWINS-Core%2Ftwins-explorer.svg)](https://badge.fury.io/gh/TWINS-Core%2Ftwins-explorer)
+[![GitHub license](https://img.shields.io/github/license/NewCapital/twins-explorer.svg)](https://github.com/NewCapital/twins-explorer/blob/master/COPYING)
 =====
 
 Simple cryptocurrency block explorer system.
