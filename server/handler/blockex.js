@@ -401,6 +401,7 @@ const getMasternodeCount = async (req, res) => {
     }
 };
 
+
 /**
  * Get the list of peers from the database.
  * @param {Object} req The request object.
@@ -419,6 +420,7 @@ const getPeer = (req, res) => {
       res.status(500).send(err.message || err);
     });
 };
+
 
 /**
  * Get coin supply information for usage.
@@ -541,6 +543,7 @@ const getTX = async (req, res) => {
     }
 };
 
+
 /**
  * Return a paginated list of transactions.
  * @param {Object} req The request object.
@@ -559,6 +562,7 @@ const getTXs = async (req, res) => {
         res.status(500).send(err.message || err);
     }
 };
+
 
 /**
  * Return all the transactions for an entire week.
@@ -614,6 +618,7 @@ const getTXsWeek = () => {
     }
   };
 };
+
 const getTXsMonth = () => {
   // When does the cache expire.
   // For now this is hard coded.
