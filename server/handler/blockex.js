@@ -470,7 +470,11 @@ const getTop100 = async(req, res) => {
         res.status(500).send(err.message || err);
     }
 };
-
+/**
+ * Get the a;; addresses from the database.
+ * @param {Object} req The request object.
+ * @param {Object} res The response object.
+ */
 const getAllAddrs = (req, res) => {
   Rich.find()
     .sort({ value: -1 })
@@ -481,6 +485,23 @@ const getAllAddrs = (req, res) => {
       console.log(err);
       res.status(500).send(err.message || err);
     });
+};
+/**
+ * Get the amount of addresses from the database.
+ * @param {Object} req The request object.
+ * @param {Object} res The response object.
+ */
+const getWalletCount = async(req, res) => {
+    try {
+        const docs = await cache.getFromCache("walletcount", moment().utc().add(1, 'hours').unix(), async() => {
+            return await Rich.count();
+        });
+
+        res.json(docs);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err.message || err);
+    }
 };
 /**
  * Return a paginated list of transactions.
@@ -618,7 +639,6 @@ const getTXsWeek = () => {
     }
   };
 };
-
 const getTXsMonth = () => {
   // When does the cache expire.
   // For now this is hard coded.
@@ -668,6 +688,7 @@ const getTXsMonth = () => {
     };
 };
 
+
 module.exports = {
     getAddress,
     getAvgBlockTime,
@@ -676,38 +697,20 @@ module.exports = {
     getCoin,
     getCoinHistory,
     getCoinsWeek,
+    getCoinsMonth,
     getIsBlock,
     getMasternodes,
+    getProposals,
     getMasternodeByAddress,
     getMasternodeCount,
     getPeer,
     getSupply,
     getTop100,
+    getAllAddrs,
+    getWalletCount,
     getTXLatest,
     getTX,
     getTXs,
-    getTXsWeek
-};
-module.exports =  {
-  getAddress,
-  getAvgBlockTime,
-  getAvgMNTime,
-  getBlock,
-  getCoin,
-  getCoinHistory,
-  getCoinsWeek,
-  getCoinsMonth,
-  getIsBlock,
-  getMasternodes,
-  getMasternodeByAddress,
-  getMasternodeCount,
-  getPeer,
-  getSupply,
-  getTop100,
-  getAllAddrs,
-  getTXLatest,
-  getTX,
-  getTXs,
-  getTXsWeek,
-  getTXsMonth
+    getTXsWeek,
+    getTXsMonth
 };

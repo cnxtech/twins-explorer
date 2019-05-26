@@ -4,6 +4,8 @@ const { exit, rpc } = require('../lib/cron');
 const fetch = require('../lib/fetch');
 const locker = require('../lib/locker');
 const moment = require('moment');
+const Rich = require('../../model/rich');
+
 // Models.
 const Coin = require('../model/coin');
 
@@ -36,7 +38,8 @@ async function syncCoin() {
         netHash: nethashps,
         peers: info.connections,
         status: 'Online',
-        supply: info.moneysupply, // TODO: change to actual count from db.
+        supply: info.moneysupply,
+        activewallets: await Rich.count({}),
         usd: market.price_usd
     });
 
