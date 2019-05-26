@@ -1,4 +1,3 @@
-
 const chain = require('../../lib/blockchain');
 const { forEach } = require('p-iteration');
 const moment = require('moment');
@@ -74,20 +73,20 @@ const getAddress = async(req, res) => {
  * @param {Object} res The response object.
  */
 const getAvgBlockTime = () => {
-  // When does the cache expire.
-  // For now this is hard coded.
-  let cache = 90.0;
-  let cutOff = moment().utc().add(60, 'seconds').unix();
-  let loading = true;
+    // When does the cache expire.
+    // For now this is hard coded.
+    let cache = 90.0;
+    let cutOff = moment().utc().add(60, 'seconds').unix();
+    let loading = true;
 
-  // Generate the average.
-  const getAvg = async () => {
-    loading = true;
+    // Generate the average.
+    const getAvg = async() => {
+        loading = true;
 
-    try {
-      const date = moment.utc().subtract(24, 'hours').toDate();
-      const blocksCount = await Block.count({ createdAt: { $gt: date } });
-      const seconds = 24 * 60 * 60;
+        try {
+            const date = moment.utc().subtract(24, 'hours').toDate();
+            const blocksCount = await Block.count({ createdAt: { $gt: date } });
+            const seconds = 24 * 60 * 60;
 
             cache = seconds / blocksCount;
             cutOff = moment().utc().add(60, 'seconds').unix();
@@ -98,23 +97,23 @@ const getAvgBlockTime = () => {
                 cache = 0.0;
             }
 
-      loading = false;
-    }
-  };
+            loading = false;
+        }
+    };
 
-  // Load the initial cache.
-  getAvg();
+    // Load the initial cache.
+    getAvg();
 
-  return async (req, res) => {
-    res.json(cache || 0.0);
+    return async(req, res) => {
+        res.json(cache || 0.0);
 
-    // If the cache has expired then go ahead
-    // and get a new one but return the current
-    // cache for this request.
-    if (!loading && cutOff <= moment().utc().unix()) {
-      await getAvg();
-    }
-  };
+        // If the cache has expired then go ahead
+        // and get a new one but return the current
+        // cache for this request.
+        if (!loading && cutOff <= moment().utc().unix()) {
+            await getAvg();
+        }
+    };
 };
 
 
@@ -124,20 +123,20 @@ const getAvgBlockTime = () => {
  * @param {Object} res The response object.
  */
 const getAvgMNTime = () => {
-  // When does the cache expire.
-  // For now this is hard coded.
-  let cache = 24.0;
-  let cutOff = moment().utc().add(5, 'minutes').unix();
-  let loading = true;
+    // When does the cache expire.
+    // For now this is hard coded.
+    let cache = 24.0;
+    let cutOff = moment().utc().add(5, 'minutes').unix();
+    let loading = true;
 
-  // Generate the average.
-  const getAvg = async () => {
-    loading = true;
+    // Generate the average.
+    const getAvg = async() => {
+        loading = true;
 
-    try {
-      const date = moment.utc().subtract(24, 'hours').toDate();
-      const blocksCount = await Block.count({ createdAt: { $gt: date } });
-      const masternodesCount = await Masternode.count();
+        try {
+            const date = moment.utc().subtract(24, 'hours').toDate();
+            const blocksCount = await Block.count({ createdAt: { $gt: date } });
+            const masternodesCount = await Masternode.count();
 
             cache = (24.0 / (blocksCount / masternodesCount));
             cutOff = moment().utc().add(5, 'minutes').unix();
@@ -148,23 +147,23 @@ const getAvgMNTime = () => {
                 cache = 0.0;
             }
 
-      loading = false;
-    }
-  };
+            loading = false;
+        }
+    };
 
-  // Load the initial cache.
-  getAvg();
+    // Load the initial cache.
+    getAvg();
 
-  return async (req, res) => {
-    res.json(cache || 0.0);
+    return async(req, res) => {
+        res.json(cache || 0.0);
 
-    // If the cache has expired then go ahead
-    // and get a new one but return the current
-    // cache for this request.
-    if (!loading && cutOff <= moment().utc().unix()) {
-      await getAvg();
-    }
-  };
+        // If the cache has expired then go ahead
+        // and get a new one but return the current
+        // cache for this request.
+        if (!loading && cutOff <= moment().utc().unix()) {
+            await getAvg();
+        }
+    };
 };
 
 /**
@@ -172,16 +171,14 @@ const getAvgMNTime = () => {
  * @param {Object} req The request object.
  * @param {Object} res The response object.
  */
-const getBlock = async (req, res) => {
-  try {
-    const query = isNaN(req.params.hash)
-      ? { hash: req.params.hash }
-      : { height: req.params.hash };
-    const block = await Block.findOne(query);
-    if (!block) {
-      res.status(404).send('Unable to find the block!');
-      return;
-    }
+const getBlock = async(req, res) => {
+    try {
+        const query = isNaN(req.params.hash) ? { hash: req.params.hash } : { height: req.params.hash };
+        const block = await Block.findOne(query);
+        if (!block) {
+            res.status(404).send('Unable to find the block!');
+            return;
+        }
 
         const txs = await TX.find({ txId: { $in: block.txs } });
 
@@ -198,15 +195,15 @@ const getBlock = async (req, res) => {
  * @param {Object} res The response object.
  */
 const getCoin = (req, res) => {
-  Coin.findOne()
-    .sort({ createdAt: -1 })
-    .then((doc) => {
-      res.json(doc);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send(err.message || err);
-    });
+    Coin.findOne()
+        .sort({ createdAt: -1 })
+        .then((doc) => {
+            res.json(doc);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send(err.message || err);
+        });
 };
 
 /**
@@ -215,17 +212,17 @@ const getCoin = (req, res) => {
  * @param {Object} res The response object.
  */
 const getCoinHistory = (req, res) => {
-  Coin.find()
-    .skip(req.query.skip ? parseInt(req.query.skip, 10) : 0)
-    .limit(req.query.limit ? parseInt(req.query.limit, 10) : 12) // 12x5=60 mins
-    .sort({ createdAt: -1 })
-    .then((docs) => {
-      res.json(docs);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send(err.message || err);
-    });
+    Coin.find()
+        .skip(req.query.skip ? parseInt(req.query.skip, 10) : 0)
+        .limit(req.query.limit ? parseInt(req.query.limit, 10) : 12) // 12x5=60 mins
+        .sort({ createdAt: -1 })
+        .then((docs) => {
+            res.json(docs);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send(err.message || err);
+        });
 };
 
 /**
@@ -235,25 +232,25 @@ const getCoinHistory = (req, res) => {
  * @param {Object} res The response object.
  */
 const getCoinsWeek = () => {
-  // When does the cache expire.
-  // For now this is hard coded.
-  let cache = [];
-  let cutOff = moment().utc().add(1, 'hour').unix();
-  let loading = true;
+    // When does the cache expire.
+    // For now this is hard coded.
+    let cache = [];
+    let cutOff = moment().utc().add(1, 'hour').unix();
+    let loading = true;
 
-  // Aggregate the data and build the date list.
-  const getCoins = async () => {
-    loading = true;
+    // Aggregate the data and build the date list.
+    const getCoins = async() => {
+        loading = true;
 
-    try {
-      const start = moment().utc().subtract(8, 'days').toDate();
-      const end = moment().utc().toDate();
-      const qry = [
-        // Select last 7 days of coins.
-        { $match: { createdAt: { $gt: start, $lt: end } } },
-        // Sort by _id/date field in ascending order (order -> newer)
-        { $sort: { createdAt: 1 } }
-      ];
+        try {
+            const start = moment().utc().subtract(8, 'days').toDate();
+            const end = moment().utc().toDate();
+            const qry = [
+                // Select last 7 days of coins.
+                { $match: { createdAt: { $gt: start, $lt: end } } },
+                // Sort by _id/date field in ascending order (order -> newer)
+                { $sort: { createdAt: 1 } }
+            ];
 
             cache = await Coin.aggregate(qry);
             cutOff = moment().utc().add(90, 'seconds').unix();
@@ -264,78 +261,84 @@ const getCoinsWeek = () => {
         }
     };
 
-  // Load the initial cache.
-  getCoins();
+    // Load the initial cache.
+    getCoins();
 
-  return async (req, res) => {
-    res.json(cache);
+    return async(req, res) => {
+        res.json(cache);
 
-    // If the cache has expired then go ahead
-    // and get a new one but return the current
-    // cache for this request.
-    if (!loading && cutOff <= moment().utc().unix()) {
-      await getCoins();
-    }
-  };
+        // If the cache has expired then go ahead
+        // and get a new one but return the current
+        // cache for this request.
+        if (!loading && cutOff <= moment().utc().unix()) {
+            await getCoins();
+        }
+    };
 };
 
 const getCoinsMonth = () => {
-  // When does the cache expire.
-  // For now this is hard coded.
-  let cache = [];
-  let cutOff = moment().utc().add(1, 'hour').unix();
-  let loading = true;
+    // When does the cache expire.
+    // For now this is hard coded.
+    let cache = [];
+    let cutOff = moment().utc().add(1, 'hour').unix();
+    let loading = true;
 
-  // Aggregate the data and build the date list.
-  const getCoins = async () => {
-    loading = true;
+    // Aggregate the data and build the date list.
+    const getCoins = async() => {
+        loading = true;
 
-    try {
-      const start = moment().utc().subtract(30, 'days').toDate();
-      const end = moment().utc().toDate();
-      const qry = [
-        // Select last 7 days of coins.
-        { $match: { createdAt: { $gt: start, $lt: end } } },
-        // Sort by _id/date field in ascending order (order -> newer)
-        { $sort: { createdAt: 1 } }
-      ];
+        try {
+            const start = moment().utc().subtract(30, 'days').toDate();
+            const end = moment().utc().toDate();
+            const qry = [
+                // Select last 7 days of coins.
+                { $match: { createdAt: { $gt: start, $lt: end } } },
+                // Sort by _id/date field in ascending order (order -> newer)
+                { $sort: { createdAt: 1 } }
+            ];
 
-      cache = await Coin.aggregate(qry);
-      cutOff = moment().utc().add(90, 'seconds').unix();
-    } catch(err) {
-      console.log(err);
-    } finally {
-      loading = false;
-    }
-  };
+            cache = await Coin.aggregate(qry);
+            cutOff = moment().utc().add(90, 'seconds').unix();
+        } catch (err) {
+            console.log(err);
+        } finally {
+            loading = false;
+        }
+    };
 
-  // Load the initial cache.
-  getCoins();
+    // Load the initial cache.
+    getCoins();
 
-  return async (req, res) => {
-    res.json(cache);
+    return async(req, res) => {
+        res.json(cache);
 
-    // If the cache has expired then go ahead
-    // and get a new one but return the current
-    // cache for this request.
-    if (!loading && cutOff <= moment().utc().unix()) {
-      await getCoins();
-    }
-  };
+        // If the cache has expired then go ahead
+        // and get a new one but return the current
+        // cache for this request.
+        if (!loading && cutOff <= moment().utc().unix()) {
+            await getCoins();
+        }
+    };
 };
 /**
  * Will return true if a block hash.
  * @param {Object} req The request object.
  * @param {Object} res The response object.
  */
-const getIsBlock = async (req, res) => {
-  try {
-    let isBlock = false;
+const getIsBlock = async(req, res) => {
+    try {
+        let isBlock = false;
 
-    // Search for block hash.
-    const block = await Block.findOne({ hash: req.params.hash });
-    if (block) {
-      isBlock = true;
+        // Search for block hash.
+        const block = await Block.findOne({ hash: req.params.hash });
+        if (block) {
+            isBlock = true;
+        }
+
+        res.json(isBlock);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err.message || err);
     }
 
     res.json(isBlock);
@@ -390,9 +393,12 @@ const getMasternodeByAddress = async(req, res) => {
  * @param {Object} req The request object.
  * @param {Object} res The response object.
  */
-const getMasternodeCount = async (req, res) => {
-  try {
-    const coin = await Coin.findOne().sort({ createdAt: -1 });
+const getMasternodeCount = async(req, res) => {
+    try {
+        const masternodeCount = await cache.getFromCache("masternodeCount", moment().utc().add(60, 'seconds').unix(), async() => {
+            const coin = await Coin.findOne().sort({ createdAt: -1 });
+            return { enabled: coin.mnsOn, total: coin.mnsOff + coin.mnsOn };
+        });
 
         res.json(masternodeCount);
     } catch (err) {
@@ -408,17 +414,17 @@ const getMasternodeCount = async (req, res) => {
  * @param {Object} res The response object.
  */
 const getPeer = (req, res) => {
-  Peer.find()
-    .skip(req.query.skip ? parseInt(req.query.skip, 10) : 0)
-    .limit(req.query.limit ? parseInt(req.query.limit, 10) : 500)
-    .sort({ ip: 1 })
-    .then((docs) => {
-      res.json(docs);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send(err.message || err);
-    });
+    Peer.find()
+        .skip(req.query.skip ? parseInt(req.query.skip, 10) : 0)
+        .limit(req.query.limit ? parseInt(req.query.limit, 10) : 500)
+        .sort({ ip: 1 })
+        .then((docs) => {
+            res.json(docs);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send(err.message || err);
+        });
 };
 
 
@@ -428,10 +434,10 @@ const getPeer = (req, res) => {
  * @param {Object} req The request object.
  * @param {Object} res The response object.
  */
-const getSupply = async (req, res) => {
-  try {
-    let c = 0; // Circulating supply.
-    let t = 0; // Total supply.
+const getSupply = async(req, res) => {
+    try {
+        let c = 0; // Circulating supply.
+        let t = 0; // Total supply.
 
         let supply = await cache.getFromCache("supply", moment().utc().add(1, 'hours').unix(), async() => {
             const utxo = await UTXO.aggregate([
@@ -476,15 +482,15 @@ const getTop100 = async(req, res) => {
  * @param {Object} res The response object.
  */
 const getAllAddrs = (req, res) => {
-  Rich.find()
-    .sort({ value: -1 })
-    .then((docs) => {
-      res.json(docs);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send(err.message || err);
-    });
+    Rich.find()
+        .sort({ value: -1 })
+        .then((docs) => {
+            res.json(docs);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send(err.message || err);
+        });
 };
 /**
  * Get the amount of addresses from the database.
@@ -528,34 +534,32 @@ const getTXLatest = async(req, res) => {
  * @param {Object} req The request object.
  * @param {Object} res The response object.
  */
-const getTX = async (req, res) => {
-  try {
-    const query = isNaN(req.params.hash)
-      ? { txId: req.params.hash }
-      : { height: req.params.hash };
-    const tx = await TX.findOne(query);
-    if (!tx) {
-      res.status(404).send('Unable to find the transaction!');
-      return;
-    }
-
-    // Get the transactions that are found in the
-    // vin section of the tx.
-    const vin = [];
-    await forEach(tx.vin, async (vi) => {
-      if (vi.txId) {
-        const t = await TX.findOne({ txId: vi.txId });
-        if (!!t) {
-          t.vout.forEach((vo) => {
-            if (vo.n === vi.vout) {
-              vin.push({ address: vo.address, value: vo.value });
-            }
-          });
+const getTX = async(req, res) => {
+    try {
+        const query = isNaN(req.params.hash) ? { txId: req.params.hash } : { height: req.params.hash };
+        const tx = await TX.findOne(query);
+        if (!tx) {
+            res.status(404).send('Unable to find the transaction!');
+            return;
         }
-      } else if (vi.coinbase) {
-        vin.push(vi);
-      }
-    });
+
+        // Get the transactions that are found in the
+        // vin section of the tx.
+        const vin = [];
+        await forEach(tx.vin, async(vi) => {
+            if (vi.txId) {
+                const t = await TX.findOne({ txId: vi.txId });
+                if (!!t) {
+                    t.vout.forEach((vo) => {
+                        if (vo.n === vi.vout) {
+                            vin.push({ address: vo.address, value: vo.value });
+                        }
+                    });
+                }
+            } else if (vi.coinbase) {
+                vin.push(vi);
+            }
+        });
 
         res.json({...tx.toObject(), vin });
     } catch (err) {
@@ -570,12 +574,12 @@ const getTX = async (req, res) => {
  * @param {Object} req The request object.
  * @param {Object} res The response object.
  */
-const getTXs = async (req, res) => {
-  try {
-    const limit = req.query.limit ? parseInt(req.query.limit, 10) : 10;
-    const skip = req.query.skip ? parseInt(req.query.skip, 10) : 0;
-    const total = await TX.find().sort({ blockHeight: -1 }).count();
-    const txs = await TX.find().skip(skip).limit(limit).sort({ blockHeight: -1 });
+const getTXs = async(req, res) => {
+    try {
+        const limit = req.query.limit ? parseInt(req.query.limit, 10) : 10;
+        const skip = req.query.skip ? parseInt(req.query.skip, 10) : 0;
+        const total = await TX.find().sort({ blockHeight: -1 }).count();
+        const txs = await TX.find().skip(skip).limit(limit).sort({ blockHeight: -1 });
 
         res.json({ txs, pages: total <= limit ? 1 : Math.ceil(total / limit) });
     } catch (err) {
@@ -592,29 +596,29 @@ const getTXs = async (req, res) => {
  * @param {Object} res The response object.
  */
 const getTXsWeek = () => {
-  // When does the cache expire.
-  // For now this is hard coded.
-  let cache = [];
-  let cutOff = moment().utc().add(1, 'hour').unix();
-  let loading = true;
+    // When does the cache expire.
+    // For now this is hard coded.
+    let cache = [];
+    let cutOff = moment().utc().add(1, 'hour').unix();
+    let loading = true;
 
-  // Aggregate the data and build the date list.
-  const getTXs = async () => {
-    loading = true;
+    // Aggregate the data and build the date list.
+    const getTXs = async() => {
+        loading = true;
 
-    try {
-      const start = moment().utc().startOf('day').subtract(7, 'days').toDate();
-      const end = moment().utc().endOf('day').subtract(1, 'days').toDate();
-      const qry = [
-        // Select last 7 days of txs.
-        { $match: { createdAt: { $gt: start, $lt: end } } },
-        // Convert createdAt date field to date string.
-        { $project: { date: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } } } },
-        // Group by date string and build total/sum.
-        { $group: { _id: '$date', total: { $sum: 1 } } },
-        // Sort by _id/date field in ascending order (order -> newer)
-        { $sort: { _id: 1 } }
-      ];
+        try {
+            const start = moment().utc().startOf('day').subtract(7, 'days').toDate();
+            const end = moment().utc().endOf('day').subtract(1, 'days').toDate();
+            const qry = [
+                // Select last 7 days of txs.
+                { $match: { createdAt: { $gt: start, $lt: end } } },
+                // Convert createdAt date field to date string.
+                { $project: { date: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } } } },
+                // Group by date string and build total/sum.
+                { $group: { _id: '$date', total: { $sum: 1 } } },
+                // Sort by _id/date field in ascending order (order -> newer)
+                { $sort: { _id: 1 } }
+            ];
 
             cache = await TX.aggregate(qry);
             cutOff = moment().utc().add(90, 'seconds').unix();
@@ -625,26 +629,26 @@ const getTXsWeek = () => {
         }
     };
 
-  // Load the initial cache.
-  getTXs();
+    // Load the initial cache.
+    getTXs();
 
-  return async (req, res) => {
-    res.json(cache);
+    return async(req, res) => {
+        res.json(cache);
 
-    // If the cache has expired then go ahead
-    // and get a new one but return the current
-    // cache for this request.
-    if (!loading && cutOff <= moment().utc().unix()) {
-      await getTXs();
-    }
-  };
+        // If the cache has expired then go ahead
+        // and get a new one but return the current
+        // cache for this request.
+        if (!loading && cutOff <= moment().utc().unix()) {
+            await getTXs();
+        }
+    };
 };
 const getTXsMonth = () => {
-  // When does the cache expire.
-  // For now this is hard coded.
-  let cache = [];
-  let cutOff = moment().utc().add(1, 'hour').unix();
-  let loading = true;
+    // When does the cache expire.
+    // For now this is hard coded.
+    let cache = [];
+    let cutOff = moment().utc().add(1, 'hour').unix();
+    let loading = true;
 
     // Aggregate the data and build the date list.
     const getTXs = async() => {
@@ -700,7 +704,6 @@ module.exports = {
     getCoinsMonth,
     getIsBlock,
     getMasternodes,
-    getProposals,
     getMasternodeByAddress,
     getMasternodeCount,
     getPeer,
