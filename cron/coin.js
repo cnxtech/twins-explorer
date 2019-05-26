@@ -21,7 +21,7 @@ async function syncCoin() {
     const info = await rpc.call('getinfo');
     const masternodes = await rpc.call('getmasternodecount');
     const nethashps = await rpc.call('getnetworkhashps');
-
+    const activewallets = await Rich.count({});
     let market = await fetch(url);
     if (Array.isArray(market)) {
         market = market.length ? market[0] : {};
@@ -39,7 +39,7 @@ async function syncCoin() {
         peers: info.connections,
         status: 'Online',
         supply: info.moneysupply,
-        activewallets: await Rich.count({}),
+        activewallets: activewallets,
         usd: market.price_usd
     });
 
