@@ -43,7 +43,6 @@ async function syncCoin() {
         peers: info.connections,
         status: 'Online',
         supply: info.moneysupply,
-        activewallets: activewallets,
         usd: market.price_usd
     });
 
