@@ -9,6 +9,7 @@ Simple cryptocurrency block explorer system.
 
 ## Credits
 Bulwark : For initial basecode and UI
+&middot;
 DogeCash : For dark theme and other API additions to the basecode of bulwark explorer.
 ## Required
 This repo assumes `git`, `mongodb`, `node`, `yarn`, and are installed with configuration done.  Please adjust commands to your local environment. 
